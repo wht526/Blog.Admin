@@ -207,14 +207,15 @@ body {
     background: #2d8cf0;
 }
 .content-az{
-    border: 1px solid #f0f0f0;
-    /*margin: 10px 15px;*/
-    /*overflow: auto;*/
     margin-right: 10px;
-    height: 100%;
-    padding: 5px;
-    
+    height: calc(100% - 61px);
     overflow-y: auto;
+}
+.content-az.router-view-withly{
+    border: 1px solid #f0f0f0;
+    margin-top: 20px;
+    margin-left: 5px;
+    padding: 5px;
 }
 .content-wrapper .tags{
     padding-right: 20px;
@@ -224,7 +225,7 @@ body {
     height: 100%;
 }
 .welcome-card{
-    width:30%;float:left;margin-right:10px;
+    width:100%;float:left;margin-right:10px;
 }
 @media screen and (max-width: 500px) {
    
@@ -240,3 +241,12 @@ body {
 .scrollbar-handle.el-scrollbar > :first-child {
     overflow-x: hidden !important;
 }
+
+a{
+    text-decoration: none;
+}
+.activeuser .el-card__body{
+    padding: 0 !important;
+    height: 50px;
+    overflow: hidden;
+    }

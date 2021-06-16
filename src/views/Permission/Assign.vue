@@ -38,11 +38,13 @@
                             :check-strictly="true"
                     >
                         <span class="custom-tree-node" slot-scope="{ node, data }">
-                        <span>{{ node.label }}</span>
+                        <span>{{ node.label }}<el-button @click.prevent="reverse(data.btns)" v-if="(data.btns && data.btns.length>1)" style="padding:5px 8px;margin-left:5px;" size="mini" type="plain">反选</el-button> </span>
                         <span>
                         <el-checkbox-group v-model="assignBtns">
                         <el-checkbox v-for="btn in data.btns" :key="btn.value"
-                                     :label="btn.label+'_'+btn.value"></el-checkbox>
+                                     :label="btn.value.toString()">
+                                     {{btn.label}}
+                                     </el-checkbox>
                         </el-checkbox-group>
 
                         </span>
@@ -108,6 +110,22 @@
             }
         },
         methods: {
+            //反选
+            reverse(ls){
+                console.log(this.data5);
+                console.log(ls);
+                if(ls && ls.length){
+                    for(let i=0;i<ls.length;i++){
+                        let btn = ls[i];
+                        let findBtnIndex = this.assignBtns.findIndex(t=>t == btn.value);
+                        if(findBtnIndex>-1){
+                            this.assignBtns.splice(findBtnIndex,1);
+                        }else{
+                            this.assignBtns.push(""+btn.value);
+                        }
+                    }
+                }
+            },
             //性别显示转换
             formatEnabled: function (row, column) {
                 return row.Enabled ? '正常' : '未知';
@@ -160,21 +178,37 @@
                 let _this=this;
                 this.loadingSave=true;
                 this.loadingSaveStr='保存中...';
-                console.log(this.$refs.tree.getCheckedKeys());
-                console.log(this.assignBtns)
+                //console.log(this.$refs.tree.getCheckedKeys());
+                //console.log(this.assignBtns)
                 let pids = this.$refs.tree.getCheckedKeys();
                 try {
                     if (this.assignBtns.length > 0) {
                         for (let i = 0; i < this.assignBtns.length; i++) {
-                            let assginbtn = this.assignBtns[i].split("_")[1];
-                            if (assginbtn > 0) {
+                            // let assginbtn = this.assignBtns[i].split("_")[1];
+                            let assginbtn = this.assignBtns[i];
+                            if (assginbtn && assginbtn > 0) {
                                 pids.push(assginbtn);
                             }
                         }
+                    } else {
+                        this.loadingSaveStr = "保存";
+                        this.loadingSave = false;
+                        this.$message({
+                            message: "参数错误",
+                            type: "error",
+                        });
+                        return false;
                     }
                 } catch (e) {
-
+                    this.$message({
+                        message: "操作异常",
+                        type: "error",
+                    });
+                    return false;
                 }
+                console.log(this.assignBtns);
+                console.log(pids);
+              
                 let para = {pids: pids, rid: this.roleid}
                 if (para.rid > 0 && para.pids.length > 0) {
                     addRolePermission(para).then((res) => {
@@ -319,6 +353,7 @@
             this.loadingSave=true;
             this.loadingSaveStr='加载中...';
             this.getRoles();
+
             // this.getPermissions();
         }
     }

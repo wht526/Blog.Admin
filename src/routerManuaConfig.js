@@ -21,7 +21,7 @@ import Charts from './views/Form/Charts.vue'
 import Blogs from './views/Blog/Blogs.vue'
 import Bugs from './views/Tibug/Bugs.vue'
 
-import Thanks from './views/Thanks'
+import APIDoc from './views/APIDoc'
 import {saveRefreshtime} from "./api/api";
 import NoPage from "./views/404";
 import TestOne from "./views/TestShow/TestOne";
@@ -31,6 +31,9 @@ import TestOne from "./views/TestShow/TestOne";
 Vue.use(Router)
 
 
+/**
+ * 这是手动注册的方式，弃用
+ */
 const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
@@ -54,9 +57,9 @@ const router = new Router({
             hidden: true
         },
         {
-            path: '/Thanks', component: Thanks, name: 'Thanks',
+            path: '/APIDoc', component: APIDoc, name: 'APIDoc',
             meta: {
-                title: 'Thanks',
+                title: 'APIDoc',
                 requireAuth: false
             },
             hidden: true
@@ -91,14 +94,14 @@ const router = new Router({
             iconCls: 'fa-users',//图标样式class
             children: [
                 {
-                    path: '/Admin/Users', component: Table, name: '用户管理',
+                    path: '/User/Users', component: Table, name: '用户管理',
                     meta: {
                         title: '用户管理',
                         requireAuth: true
                     }
                 },
                 {
-                    path: '/Admin/Roles', component: Roles, name: '角色管理',
+                    path: '/User/Roles', component: Roles, name: '角色管理',
                     meta: {
                         title: '角色管理',
                         requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
@@ -113,14 +116,14 @@ const router = new Router({
             iconCls: 'fa-sitemap',//图标样式class
             children: [
                 {
-                    path: '/Permission/Modules', component: Module, name: '接口管理',
+                    path: '/Permission/Module', component: Module, name: '接口管理',
                     meta: {
                         title: '接口管理',
                         requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
                     }
                 },
                 {
-                    path: '/Permission/Menu', component: Permission, name: '菜单管理',
+                    path: '/Permission/Permission', component: Permission, name: '菜单管理',
                     meta: {
                         title: '菜单管理',
                         requireAuth: true // 添加该字段，表示进入这个路由是需要登录的

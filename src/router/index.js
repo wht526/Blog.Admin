@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../views/Login.vue'
 import Welcome from '../views/Welcome'
-import Thanks from '../views/Thanks'
+import APIDoc from '../views/APIDoc'
 import NoPage from '../views/404'
 
 import Layout from "../views/Layout/Layout";
@@ -27,9 +27,9 @@ const createRouter = () => new Router({
             hidden: true
         },
         {
-            path: '/Thanks', component: Thanks, name: 'Thanks',
+            path: '/APIDoc', component: APIDoc, name: 'APIDoc',
             meta: {
-                title: 'Thanks',
+                title: 'APIDoc',
                 requireAuth: false
             },
             hidden: true
@@ -37,11 +37,11 @@ const createRouter = () => new Router({
         {
             path: '/',
             component: Welcome,
-            name: 'QQ欢迎页',
+            name: '首页',
             iconCls: 'fa-qq',//图标样式class
             // hidden: true,
             meta: {
-                title: 'QQ欢迎页',
+                title: '首页',
                 requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
             }
         },

@@ -109,7 +109,8 @@
                             </div>
                         </div>
                         <transition name="fade" mode="out-in">
-                            <div class="content-az">
+                            <div class="content-az router-view-withly">
+                                <!-- 含有母版的路由页面 -->
                                 <router-view></router-view>
                             </div>
                         </transition>
@@ -121,7 +122,8 @@
         </transition>
 
         <transition v-else name="fade" mode="out-in">
-            <div class="content-az">
+            <div class="content-az router-view-noly">
+                <!-- 单独的页面 -->
                 <router-view></router-view>
             </div>
         </transition>
@@ -162,7 +164,7 @@
         data() {
             return {
                 sysName: 'BlogAdmin',
-                sysNameShort: 'BA',
+                sysNameShort: 'BD',
                 NewsVisible: false,
                 SidebarVisible: false,
                 collapsed: false,
@@ -403,6 +405,8 @@
                 this.routes = NavigationBar;
             }
 
+            // 折叠菜单栏
+            this.collapse();
         },
         updated() {
             var user = JSON.parse(window.localStorage.user ? window.localStorage.user : null);
@@ -497,7 +501,6 @@
         position: relative;
         overflow: hidden;
         border: 1px solid #f0f0f0;
-        margin-bottom: 20px;
         background: #f0f0f0;
     }
 
@@ -677,6 +680,10 @@
         .content-wrapper .tags {
             margin: 0px;
             padding: 0px;
+        }
+
+        .activeuser{
+            display: none !important;
         }
 
     }
